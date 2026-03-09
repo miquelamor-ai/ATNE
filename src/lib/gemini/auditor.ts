@@ -1,4 +1,4 @@
-import { getGeminiClient } from "./client"
+import { callLLM } from "@/lib/llm/client"
 import { buildAuditorPrompt } from "./prompts/auditor"
 import type { GeminiAuditResponse } from "@/types"
 
@@ -10,7 +10,6 @@ interface AuditarOptions {
 }
 
 export async function auditar(opts: AuditarOptions): Promise<GeminiAuditResponse> {
-  const client = getGeminiClient()
   const systemPrompt = buildAuditorPrompt()
 
   const userMessage = `## Text Original
@@ -21,18 +20,13 @@ ${opts.textAdaptat}
 
 Revisa si el text adaptat compleix els criteris de Lectura Fàcil.`
 
-  const response = await client.models.generateContent({
+  const text = await callLLM({
     model: opts.model,
-    contents: userMessage,
-    config: {
-      systemInstruction: systemPrompt,
-      responseMimeType: "application/json",
-      temperature: 0.1,
-    },
+    systemPrompt,
+    userMessage,
+    temperature: 0.1,
+    jsonMode: true,
   })
-
-  const text = response.text
-  if (!text) throw new Error("Resposta buida de l'auditor")
 
   return JSON.parse(text) as GeminiAuditResponse
 }

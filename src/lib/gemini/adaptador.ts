@@ -1,4 +1,4 @@
-import { getGeminiClient } from "./client"
+import { callLLM } from "@/lib/llm/client"
 import { buildAdaptadorPrompt } from "./prompts/adaptador"
 import type { GeminiAdaptationResponse } from "@/types"
 
@@ -17,7 +17,6 @@ interface AdaptarOptions {
 }
 
 export async function adaptar(opts: AdaptarOptions): Promise<GeminiAdaptationResponse> {
-  const client = getGeminiClient()
   const systemPrompt = buildAdaptadorPrompt({
     edat: opts.edat,
     nivellDificultat: opts.nivellDificultat,
@@ -34,18 +33,13 @@ export async function adaptar(opts: AdaptarOptions): Promise<GeminiAdaptationRes
     ? `Genera un text educatiu sobre: "${opts.temaGenerar}"`
     : `Adapta el següent text:\n\n${opts.textOriginal}`
 
-  const response = await client.models.generateContent({
+  const text = await callLLM({
     model: opts.model,
-    contents: userMessage,
-    config: {
-      systemInstruction: systemPrompt,
-      responseMimeType: "application/json",
-      temperature: 0.3,
-    },
+    systemPrompt,
+    userMessage,
+    temperature: 0.3,
+    jsonMode: true,
   })
-
-  const text = response.text
-  if (!text) throw new Error("Resposta buida de Gemini")
 
   return JSON.parse(text) as GeminiAdaptationResponse
 }

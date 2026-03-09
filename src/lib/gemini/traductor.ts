@@ -1,4 +1,4 @@
-import { getGeminiClient } from "./client"
+import { callLLM } from "@/lib/llm/client"
 import { buildTraductorPrompt } from "./prompts/traductor"
 
 interface TraduirOptions {
@@ -8,20 +8,15 @@ interface TraduirOptions {
 }
 
 export async function traduir(opts: TraduirOptions): Promise<string> {
-  const client = getGeminiClient()
   const systemPrompt = buildTraductorPrompt(opts.targetLang)
 
-  const response = await client.models.generateContent({
+  const text = await callLLM({
     model: opts.model,
-    contents: opts.text,
-    config: {
-      systemInstruction: systemPrompt,
-      temperature: 0.2,
-    },
+    systemPrompt,
+    userMessage: opts.text,
+    temperature: 0.2,
+    jsonMode: false,
   })
-
-  const text = response.text
-  if (!text) throw new Error("Resposta buida del traductor")
 
   return text.trim()
 }
