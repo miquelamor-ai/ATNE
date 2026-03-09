@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// ============================================
+// MEMÒRIA D'ALUMNE
+// ============================================
+model StudentMemory {
+  id                  String   @id @default(cuid())
+  nom                 String   // Nom o identificador anònim
+  paisOrigen          String?  // País d'origen
+  llenguaL1           String?  // Llengua materna
+  alfabetitzacioLlatina String? // "si" | "no" | "proces"
+  nivellMECR          String?  // "A1" | "A2" | "B1" | "B2" | "C1" | "C2"
+  necessitatsSuport   String?  // "NEE" | "AltesCapacitats" | "Nouvingut" | null
+  notes               String?  // Notes addicionals
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+// ============================================
+// MEMÒRIA DE CLASSE
+// ============================================
+model ClassMemory {
+  id                    String   @id @default(cuid())
+  nom                   String   // Nom del grup (ex: "1r ESO A")
+  configuracioMultinivell Boolean @default(false)
+  estilSuportPreferit   String   @default("mixt") // "visual" | "textual" | "mixt"
+  notes                 String?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}
+
+// ============================================
+// PERFIL DE MATÈRIA (Content Knowledge)
+// ============================================
+model SubjectProfile {
+  id                String   @id @default(cuid())
+  nomAssignatura    String   // Ex: "Ciències Naturals"
+  estilRedaccio     String   @default("cientific") // "cientific" | "humanistic" | "linguistic"
+  termesIntocables  String?  // JSON array: termes que no es simplifiquen
+  notes             String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+// ============================================
+// ADAPTACIÓ
+// ============================================
+model Adaptation {
+  id                String   @id @default(cuid())
+
+  // Text original
+  textOriginal      String
+  fontText           String?  // "enganxat" | "pdf" | "docx" | "drive" | "generat"
+
+  // Configuració
+  edat              String?  // Franja d'edat (ex: "12-14")
+  nivellDificultat  String?  // "basic" | "intermedi" | "avancat"
+  ajuts             String?  // JSON array: ["definicions", "exemples", "esquema"]
+  traduccio         String?  // Codi idioma o null
+  taulaComparativa  Boolean  @default(true)
+  modeMultinivell   Boolean  @default(false)
+
+  // Memòries associades (referències opcionals)
+  studentMemoryId   String?
+  classMemoryId     String?
+  subjectProfileId  String?
+
+  // Resultats
+  textAdaptat       String?  // Text adaptat (nivell Core)
+  textAcces         String?  // Nivell Accés (si multinivell)
+  textEnriquiment   String?  // Nivell Enriquiment/AC (si multinivell)
+  traduccioText     String?  // Text traduït
+  auditoria         String?  // JSON: informe auditoria LF
+  taulaComparativaData String? // JSON: dades taula comparativa
+  pictograms        String?  // JSON: [{sentenceIndex, keyword, arasaacId, imageUrl}]
+  glossari          String?  // JSON: [{terme, definicio}]
+
+  // Feedback
+  feedbackDocent    String?  // Feedback textual del docent
+  valoracio         Int?     // 1-5
+
+  // BD compartida
+  tags              String?  // "sistema solar,ciències,1r ESO"
+  assignatura       String?  // Duplicat per cerca ràpida
+  isPublic          Boolean  @default(true)
+
+  // Metadades
+  createdVia        String?  // "xat" | "wizard"
+  modelAdaptador    String?  // Model Gemini usat
+  modelAuditor      String?  // Model Gemini usat per auditar
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+// ============================================
+// CONFIGURACIÓ DE L'APP
+// ============================================
+model AppSettings {
+  id                String   @id @default("default")
+  modelAdaptador    String   @default("gemini-2.0-flash")
+  modelAuditor      String   @default("gemini-2.0-flash")
+  modelTraductor    String   @default("gemini-2.0-flash")
+  modelOrquestrador String   @default("gemini-2.0-flash")
+  updatedAt         DateTime @updatedAt
+}
