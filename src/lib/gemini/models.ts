@@ -12,9 +12,9 @@ export const AVAILABLE_MODELS = [
   { value: "gemini-2.0-flash", label: "Gemini 2.0 Flash", provider: "gemini" as const },
   { value: "gemini-2.0-flash-lite", label: "Gemini 2.0 Flash Lite", provider: "gemini" as const },
   // ── OpenRouter gratuïts (requereix OPENROUTER_API_KEY) ───────────────────
-  { value: "qwen/qwen3-235b-a22b:free", label: "Qwen3 235B · gratuït", provider: "openrouter" as const },
-  { value: "qwen/qwen3-30b-a3b:free", label: "Qwen3 30B · gratuït", provider: "openrouter" as const },
-  { value: "meta-llama/llama-4-maverick:free", label: "Llama 4 Maverick · gratuït", provider: "openrouter" as const },
-  { value: "deepseek/deepseek-r1:free", label: "DeepSeek R1 · gratuït", provider: "openrouter" as const },
-  { value: "google/gemini-2.0-flash-exp:free", label: "Gemini 2.0 Flash Exp · gratuït", provider: "openrouter" as const },
+  { value: "meta-llama/llama-3.3-70b-instruct:free", label: "Llama 3.3 70B · gratuït", provider: "openrouter" as const },
+  { value: "mistralai/mistral-small-3.1-24b-instruct:free", label: "Mistral Small 3.1 24B · gratuït", provider: "openrouter" as const },
+  { value: "google/gemma-3-27b-it:free", label: "Gemma 3 27B · gratuït", provider: "openrouter" as const },
+  { value: "qwen/qwen3-coder:free", label: "Qwen3 Coder · gratuït", provider: "openrouter" as const },
+  { value: "openrouter/free", label: "OpenRouter Auto (millor gratuït disponible)", provider: "openrouter" as const },
 ]
