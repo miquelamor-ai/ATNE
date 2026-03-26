@@ -762,6 +762,44 @@ body {
     margin-top: 12px;
 }
 
+/* ── Doble excepcionalitat (2e) ────────────────── */
+
+.alert-2e {
+    margin-top: 12px;
+    padding: 14px 16px;
+    background: #fef3c7;
+    border: 1.5px solid #d97706;
+    border-radius: var(--r);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.alert-2e strong {
+    color: #92400e;
+    font-size: 14px;
+}
+
+.alert-2e p {
+    margin-top: 6px;
+    color: #78350f;
+}
+
+.proposal-2e {
+    background: #fffbeb;
+    border-color: #d97706;
+}
+
+.proposal-2e h3 {
+    color: #92400e;
+}
+
+.proposal-2e .info-2e {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--g500);
+    font-style: italic;
+}
+
 /* ── Responsive ─────────────────────────────────── */
 
 /* Tauleta */
