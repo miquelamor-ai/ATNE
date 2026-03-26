@@ -23,13 +23,7 @@ const CHARACTERISTICS = {
               options: ["1", "2", "3"] },
         ]
     },
-    altes_capacitats: {
-        label: "Altes capacitats",
-        subvars: [
-            { id: "doble_excepcionalitat", label: "Doble excepcionalitat", type: "select",
-              options: ["false", "true"], labels: ["No", "Sí"] },
-        ]
-    },
+    altes_capacitats: { label: "Altes capacitats", subvars: [] },
 };
 
 const COMPLEMENTS = {
