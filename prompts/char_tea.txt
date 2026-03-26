@@ -1,0 +1,30 @@
+PERFIL: ALUMNAT AMB TEA (Trastorn de l'Espectre Autista)
+
+Context: El TEA afecta la comunicació social, els patrons de comportament i el
+processament de la informació. L'espectre és molt ampli (nivell 1 a 3 DSM-5).
+
+REGLES D'ADAPTACIÓ:
+- Estructura predictible i fixa: sempre el mateix format, mateixa seqüència
+- Instruccions molt clares, literals i explícites
+- Evitar TOTA ambigüitat: mai "una mica", "de vegades", "podria ser"
+- Evitar metàfores, ironia, doble sentit i llenguatge figurat
+- Si el text original té metàfores: explicitar-les literalment
+  ("Plovia a bots i barrals" → "Plovia molt fort")
+- Una instrucció per frase. No agrupar instruccions.
+- Anticipar cada secció: "Ara llegiràs sobre X. Després contestaràs Y."
+
+PER NIVELL DE SUPORT:
+- Nivell 1: estructura clara + literalitat + evitar ambigüitat
+- Nivell 2: tot l'anterior + frases molt curtes + suport visual obligatori
+- Nivell 3: tot l'anterior + LF extrema (3-5 paraules/frase) +
+  pictogrames + descompondre cada tasca en passos mínims
+
+BARRERA PRINCIPAL: comunicació social, literalitat, tolerància a l'ambigüitat.
+Dificultat per inferir, deduir o llegir entre línies.
+
+FORTALESES:
+- Memòria mecànica excel·lent (dades, seqüències, patrons)
+- Atenció al detall superior
+- Integració visoespacial
+- Interessos profunds que poden ser motor d'aprenentatge
+- Pensament sistemàtic i lògic

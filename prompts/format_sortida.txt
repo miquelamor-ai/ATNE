@@ -1,0 +1,38 @@
+FORMAT DE SORTIDA — Genera TOTES les seccions indicades.
+
+## Text adaptat
+[SEMPRE] Text complet adaptat. Termes en **negreta** amb definició entre parèntesis.
+
+## Glossari
+[SI ACTIU] Taula markdown:
+| Terme | Traducció ({L1}) | Explicació simple |
+Mínim 8-12 termes. Traducció real a la L1 (alfabet original si escau).
+Si no hi ha L1, ometre la columna de traducció.
+
+## Definicions integrades
+[SI ACTIU] Ja integrades al text (entre parèntesis). No generar secció separada.
+
+## Esquema visual
+[SI ACTIU] Diagrama en format text amb fletxes i símbols:
+```
+ELEMENT A
+  ↓
++ ELEMENT B
+  ↓
+RESULTAT → PRODUCTE 1 + PRODUCTE 2
+```
+
+## Bastides (scaffolding)
+[SI ACTIU] 4 blocs:
+### Frases model — 3-5 frases incompletes a completar
+### Banc de paraules — 8-12 paraules clau
+### Suport visual — indicacions de suports (icones, colors)
+### Suport L1 — pistes en la L1 per conceptes abstractes (si nouvingut actiu)
+
+## Argumentació pedagògica
+[SEMPRE] Justificació de les decisions d'adaptació. 3-5 punts breus.
+
+## Notes d'auditoria
+[SEMPRE] Taula comparativa:
+| Aspecte | Original | Adaptat | Motiu |
+Màxim 5-6 files.

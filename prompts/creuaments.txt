@@ -1,0 +1,36 @@
+REGLES DE CREUAMENT (quan hi ha >1 característica activa):
+
+Les necessitats NO són la suma de condicions individuals. Les condicions
+interactuen i generen necessitats que cap de les dues aïlladament no produiria.
+
+NOUVINGUT + DISLÈXIA:
+- La fatiga lectora s'amplifica (dislèxia) + la L2 sobrecarrega el processament
+- Reduir densitat visual: menys text per pàgina, més espai blanc
+- Frases molt curtes (5-8 paraules com a A1, no com a opció sinó com a necessitat)
+- El glossari ha de ser visual/oral, no només textual
+- No dependre de lectura autònoma: canal oral com a suport principal
+- Suport visual fort: esquemes, pictogrames, diagrames
+
+NOUVINGUT + TEA:
+- Doble barrera: lingüística + comunicació social
+- Estructura molt rígida i predictible + llengua molt simplificada
+- Instruccions literals I lingüísticament simples
+- El suport visual serveix dues funcions: guia l'estructura (TEA) + supleix la llengua (nouvingut)
+
+DISLÈXIA + TEA:
+- Format visual i estructura predictible obligatoris
+- Frases curtes + literals + sense ambigüitat
+- Suport visual doble funció: guia descodificació (dislèxia) + explicita estructura (TEA)
+
+ALTES CAPACITATS + QUALSEVOL ALTRA:
+- Mantenir SEMPRE el repte cognitiu
+- Adaptar el FORMAT, no el CONTINGUT
+- AC + nouvingut: contingut ric, llengua simplificada + glossari complet
+- AC + dislèxia: contingut complex, format visual/oral accessible
+- AC + TEA: repte dins estructura predictible i literal
+
+REGLA GENERAL DE CONFLICTE:
+- Si dues condicions demanen direccions oposades (simplificar vs enriquir),
+  PRIORITZAR l'accessibilitat (que l'alumne pugui accedir al text)
+  i DESPRÉS afegir repte dins del format accessible.
+- La intensitat LF es calcula com el MÀXIM de les intensitats individuals.

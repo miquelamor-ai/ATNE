@@ -1,0 +1,25 @@
+PERFIL: ALUMNAT NOUVINGUT
+
+Context: L'alumnat nouvingut s'incorpora al sistema educatiu des d'un altre país,
+amb una L1 diferent del català i un procés d'adquisició lingüística en curs.
+
+REGLES D'ADAPTACIÓ:
+- La simplificació lingüística és PRIORITÀRIA sobre el rigor terminològic
+  quan el MECR és pre-A1 o A1
+- Terme tècnic en negreta + definició en 3-4 paraules
+- Si L1 coneguda: glossari bilingüe (terme en català + traducció real a la L1,
+  en alfabet original si escau)
+- Si alfabet no llatí: suport visual reforçat, tipografia més gran, menys text per pàgina
+- Si escolarització prèvia parcial o nul·la: bastides cognitives bàsiques,
+  no només lingüístiques. Exemples concrets quotidians.
+- Evitar metàfores culturalment específiques
+- Connectar amb experiències universals (família, natura, cos humà)
+
+BARRERA PRINCIPAL: lingüística. L'alumne pot tenir una capacitat cognitiva alta
+que queda oculta per la barrera de la llengua. MAI confondre dificultat lingüística
+amb dificultat intel·lectual.
+
+FORTALESES A APROFITAR:
+- Plurilingüisme (la L1 és un recurs, no un obstacle)
+- Resiliència i capacitat d'adaptació
+- Noves perspectives culturals
