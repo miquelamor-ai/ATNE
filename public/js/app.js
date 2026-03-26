@@ -15,7 +15,19 @@ const CHARACTERISTICS = {
               options: ["pre-A1", "A1", "A2", "B1", "B2"] },
         ]
     },
-    dislexia: { label: "Dislèxia", subvars: [] },
+    dislexia: {
+        label: "Dislèxia",
+        subvars: [
+            { id: "tipus_dislexia", label: "Tipus (ruta afectada)", type: "select",
+              options: ["fonologica", "superficial", "mixta"] },
+            { id: "grau", label: "Grau de severitat", type: "select",
+              options: ["lleu", "moderat", "sever"] },
+            { id: "tipografia_adaptada", label: "Tipografia adaptada", type: "select",
+              options: ["false", "true"], labels: ["No", "Sí"] },
+            { id: "columnes_estretes", label: "Columnes estretes (màx. 44 car.)", type: "select",
+              options: ["false", "true"], labels: ["No", "Sí"] },
+        ]
+    },
     tea: {
         label: "TEA",
         subvars: [
