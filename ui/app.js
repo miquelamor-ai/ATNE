@@ -30,8 +30,34 @@ const CHARACTERISTICS = {
               options: ["fluida", "limitada", "no_verbal"] },
         ]
     },
-    tdah: { label: "TDAH", subtipus: "constitutiva", subvars: [] },
-    dislexia: { label: "Dislèxia", subtipus: "constitutiva", subvars: [] },
+    tdah: {
+        label: "TDAH",
+        subtipus: "constitutiva",
+        subvars: [
+            { id: "presentacio", label: "Presentació (DSM-5)", type: "select",
+              options: ["inatent", "hiperactiu", "combinat"] },
+            { id: "grau", label: "Grau de suport", type: "select",
+              options: ["lleu", "moderat", "sever"] },
+            { id: "baixa_memoria_treball", label: "Baixa memòria de treball", type: "select",
+              options: ["false", "true"], labels: ["No", "Sí"] },
+            { id: "fatiga_cognitiva", label: "Fatiga cognitiva", type: "select",
+              options: ["false", "true"], labels: ["No", "Sí"] },
+        ]
+    },
+    dislexia: {
+        label: "Dislèxia",
+        subtipus: "constitutiva",
+        subvars: [
+            { id: "tipus_dislexia", label: "Tipus (ruta afectada)", type: "select",
+              options: ["fonologica", "superficial", "mixta"] },
+            { id: "grau", label: "Grau de severitat", type: "select",
+              options: ["lleu", "moderat", "sever"] },
+            { id: "tipografia_adaptada", label: "Tipografia adaptada", type: "select",
+              options: ["false", "true"], labels: ["No", "Sí"] },
+            { id: "columnes_estretes", label: "Columnes estretes (màx. 44 car.)", type: "select",
+              options: ["false", "true"], labels: ["No", "Sí"] },
+        ]
+    },
     altes_capacitats: {
         label: "Altes capacitats",
         subtipus: "constitutiva",
@@ -47,12 +73,49 @@ const CHARACTERISTICS = {
             { id: "grau", label: "Grau", type: "select", options: ["lleu", "moderat", "sever"] },
         ]
     },
-    tdl: { label: "TDL (Trastorn del Llenguatge)", subtipus: "constitutiva", subvars: [] },
+    tdl: {
+        label: "TDL (Trastorn del Llenguatge)",
+        subtipus: "constitutiva",
+        subvars: [
+            { id: "modalitat", label: "Modalitat afectada", type: "select",
+              options: ["comprensiu", "expressiu", "mixt"] },
+            { id: "morfosintaxi", label: "Morfosintaxi afectada", type: "select",
+              options: ["false", "true"], labels: ["No", "Sí"] },
+            { id: "semantica", label: "Semàntica/lèxic afectat", type: "select",
+              options: ["false", "true"], labels: ["No", "Sí"] },
+            { id: "pragmatica", label: "Pragmàtica afectada", type: "select",
+              options: ["false", "true"], labels: ["No", "Sí"] },
+            { id: "discurs_narrativa", label: "Discurs/narrativa afectat", type: "select",
+              options: ["false", "true"], labels: ["No", "Sí"] },
+            { id: "comprensio_lectora", label: "Comprensió lectora afectada", type: "select",
+              options: ["false", "true"], labels: ["No", "Sí"] },
+            { id: "grau", label: "Grau de severitat", type: "select",
+              options: ["lleu", "moderat", "sever"] },
+            { id: "bilingue", label: "Context bilingüe/plurilingüe", type: "select",
+              options: ["false", "true"], labels: ["No", "Sí"] },
+        ]
+    },
+    tdc: {
+        label: "TDC / Dispraxia",
+        subtipus: "constitutiva",
+        subvars: [
+            { id: "grau", label: "Grau de severitat", type: "select",
+              options: ["lleu", "moderat", "sever"] },
+            { id: "motricitat_fina", label: "Motricitat fina afectada", type: "select",
+              options: ["false", "true"], labels: ["No", "Sí"] },
+            { id: "motricitat_grossa", label: "Motricitat grossa afectada", type: "select",
+              options: ["false", "true"], labels: ["No", "Sí"] },
+            { id: "acces_teclat", label: "Accés teclat com a alternativa", type: "select",
+              options: ["true", "false"], labels: ["Sí", "No"] },
+        ]
+    },
     disc_visual: {
         label: "Discapacitat visual",
         subtipus: "constitutiva",
         subvars: [
-            { id: "grau", label: "Grau", type: "select", options: ["baixa_visio", "ceguesa"] },
+            { id: "grau", label: "Grau", type: "select",
+              options: ["baixa_visio_moderada", "baixa_visio_greu", "ceguesa"],
+              labels: ["Baixa visió moderada", "Baixa visió greu", "Ceguesa"] },
         ]
     },
     disc_auditiva: {
@@ -60,7 +123,7 @@ const CHARACTERISTICS = {
         subtipus: "constitutiva",
         subvars: [
             { id: "comunicacio", label: "Comunicació", type: "select",
-              options: ["oral", "LSC", "mixta"] },
+              options: ["oral", "LSC", "bimodal"] },
             { id: "implant_coclear", label: "Implant coclear", type: "select",
               options: ["false", "true"], labels: ["No", "Sí"] },
         ]
