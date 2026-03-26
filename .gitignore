@@ -1,8 +1,5 @@
 .env
 .env.local
-__pycache__/
-*.pyc
-output/
-node_modules/
-.next/
-profiles/
+vendor/
+composer.lock
+server.log
