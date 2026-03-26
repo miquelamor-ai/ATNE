@@ -182,7 +182,10 @@ function renderCharGrid() {
 
         div.innerHTML = `<label><input type="checkbox" data-char="${key}"> ${char.label}</label>${subvarsHTML}`;
         const cb = div.querySelector('input[type="checkbox"]');
-        cb.addEventListener("change", () => div.classList.toggle("checked", cb.checked));
+        cb.addEventListener("change", () => {
+            div.classList.toggle("checked", cb.checked);
+            check2eAlert();
+        });
         grid.appendChild(div);
     }
 }
@@ -295,6 +298,8 @@ function applyProposal(proposal, chars) {
         .map(([k]) => CHARACTERISTICS[k]?.label || k);
     document.getElementById("proposal-basis").textContent =
         actives.length > 0 ? `Basat en: ${actives.join(" + ")}` : "Perfil genèric";
+
+    show2eProposalBlock(chars);
 }
 
 // ── Adaptació ─────────────────────────────────────────────────────────────────
@@ -409,6 +414,74 @@ function updateWordCount() {
     const text = document.getElementById("input-text").value;
     const words = text.trim() ? text.trim().split(/\s+/).length : 0;
     document.getElementById("word-count").textContent = `${words} paraules`;
+}
+
+// ── Doble excepcionalitat (2e) ────────────────────────────────────────────────
+
+function check2eAlert() {
+    const acChecked = document.querySelector('input[type="checkbox"][data-char="altes_capacitats"]')?.checked;
+    const otherChars = Object.keys(CHARACTERISTICS).filter(k => k !== 'altes_capacitats');
+    const otherActive = otherChars.some(k =>
+        document.querySelector(`input[type="checkbox"][data-char="${k}"]`)?.checked
+    );
+
+    let alertDiv = document.getElementById("alert-2e");
+    if (acChecked && otherActive) {
+        if (!alertDiv) {
+            alertDiv = document.createElement("div");
+            alertDiv.id = "alert-2e";
+            alertDiv.className = "alert-2e";
+            alertDiv.innerHTML = `
+                <strong>Perfil 2e detectat — Doble excepcionalitat</strong>
+                <p>Has seleccionat altes capacitats combinada amb una altra condició.
+                Això és el que es coneix com a <strong>doble excepcionalitat (2e)</strong>:
+                un perfil propi on el potencial i les dificultats s'emmascaren mútuament.
+                L'alumne pot semblar "normal" quan internament lluita amb reptes i avorriment alhora.</p>
+                <p>L'adaptació mantindrà el <strong>repte cognitiu alt</strong> però amb el
+                <strong>format adaptat</strong> a la condició associada.</p>
+            `;
+            document.getElementById("char-grid").after(alertDiv);
+        }
+    } else if (alertDiv) {
+        alertDiv.remove();
+    }
+}
+
+function show2eProposalBlock(chars) {
+    let block = document.getElementById("proposal-2e");
+    const acActive = chars.altes_capacitats?.actiu;
+    const otherChars = Object.keys(CHARACTERISTICS).filter(k => k !== 'altes_capacitats');
+    const otherActives = otherChars.filter(k => chars[k]?.actiu);
+
+    if (acActive && otherActives.length > 0) {
+        const comboLabels = otherActives.map(k => CHARACTERISTICS[k]?.label || k);
+        const comboDesc = {
+            dislexia: "contingut complex però format visual/oral accessible. El rendiment pot ser irregular: brillant en unes matèries i molt per sota en d'altres.",
+            tea: "repte cognitiu dins estructura predictible i literal. L'hiperfocus en àrees d'interès pot ser motor d'aprenentatge.",
+            nouvingut: "contingut ric amb llengua simplificada i glossari complet. El potencial cognitiu pot quedar ocult per la barrera lingüística.",
+        };
+        const descriptions = otherActives.map(k => comboDesc[k] || "adaptar format mantenint repte.").join(" ");
+
+        if (!block) {
+            block = document.createElement("div");
+            block.id = "proposal-2e";
+            block.className = "proposal-card proposal-2e";
+            const proposalCards = document.querySelectorAll(".proposal-card");
+            if (proposalCards.length > 0) {
+                proposalCards[proposalCards.length - 1].after(block);
+            }
+        }
+        block.innerHTML = `
+            <h3>Perfil detectat: Doble excepcionalitat (2e)</h3>
+            <p><strong>AC + ${comboLabels.join(" + ")}</strong>: ${descriptions}</p>
+            <p class="info-2e">El potencial i les dificultats es poden emmascarar mútuament:
+            l'alumne pot semblar "normal" quan internament el seu perfil requereix atenció específica.
+            L'adaptació manté el repte cognitiu alt amb format adaptat.</p>
+        `;
+        block.style.display = "block";
+    } else if (block) {
+        block.style.display = "none";
+    }
 }
 
 // ── Events ────────────────────────────────────────────────────────────────────

@@ -15,17 +15,49 @@ REGLES D'ADAPTACIÓ:
 - Proposar extensions i aprofundiments
 - Evitar repetició i redundància (provoca desconnexió per avorriment)
 
-SI DOBLE EXCEPCIONALITAT (AC + altra condició):
-- Mantenir el repte cognitiu ALT
-- PERÒ adaptar el FORMAT a la condició associada
-  (ex: AC + dislèxia = contingut complex però format visual/oral;
-   AC + TEA = repte dins estructura predictible i literal)
+SI DOBLE EXCEPCIONALITAT (2e) — AC + altra condició:
+La doble excepcionalitat (2e) és un perfil PROPI, no la suma de dos perfils.
+El potencial i les dificultats s'emmascaren mútuament: l'alumne pot semblar
+"normal" quan internament lluita amb reptes i avorriment alhora.
+Sovint es manifesta com a rendiment irregular, frustració, ansietat o
+problemes de conducta que oculten tant la capacitat com la dificultat.
+
+Principis generals 2e:
+- Mantenir el repte cognitiu ALT (no simplificar el contingut)
+- Adaptar el FORMAT a la condició associada
+- L'emmascarament fa que el potencial i la dificultat siguin invisibles
+- Prioritzar les fortaleses com a via d'accés (no centrar-se en el dèficit)
+
+Combinacions específiques:
+- AC + dislèxia: contingut complex però format visual/oral accessible.
+  Rendiment irregular: brillant en unes matèries, molt per sota en d'altres.
+  Pot evitar la lectura per frustració, però té idees elaborades oralment.
+  → Oferir alternatives multisensorials, suport auditiu, mapes conceptuals.
+
+- AC + TEA: repte cognitiu dins estructura predictible i literal.
+  L'hiperfocus en àrees d'interès pot ser motor d'aprenentatge extraordinari.
+  Dificultats en flexibilitat cognitiva i comunicació social.
+  → Aprofitar els interessos com a porta d'entrada. Estructura clara + profunditat.
+
+- AC + nouvingut: contingut ric amb llengua simplificada i glossari complet.
+  El potencial cognitiu pot quedar completament ocult per la barrera lingüística.
+  L'alumne pot tenir coneixements avançats en L1 que no pot demostrar en L2.
+  → Permetre expressions en L1, glossaris bilingües, repte conceptual des del dia 1.
+
+SENYALS D'ALERTA 2e (per contextualitzar l'adaptació):
+- Rendiment acadèmic molt desigual entre matèries
+- Gran diferència entre capacitat oral i escrita
+- Frustració o conducta disruptiva en tasques "fàcils"
+- Creativitat elevada però poc rendiment en tasques rutinàries
+- Ansietat o perfeccionisme extrem
 
 BARRERA PRINCIPAL: avorriment per falta de repte. L'alumne es desconnecta
-si el text és massa simple o repetitiu.
+si el text és massa simple o repetitiu. En perfils 2e, la desconnexió
+pot confondre's amb manca de capacitat.
 
 FORTALESES:
 - Raonament abstracte, agilitat mental, creativitat
 - Motivació intrínseca per temes que els interessen
 - Pensament crític i autocrític
 - Capacitat de treball independent
+- En 2e: resiliència i estratègies compensatòries úniques

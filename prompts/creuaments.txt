@@ -22,15 +22,39 @@ DISLÈXIA + TEA:
 - Frases curtes + literals + sense ambigüitat
 - Suport visual doble funció: guia descodificació (dislèxia) + explicita estructura (TEA)
 
-ALTES CAPACITATS + QUALSEVOL ALTRA:
-- Mantenir SEMPRE el repte cognitiu
-- Adaptar el FORMAT, no el CONTINGUT
-- AC + nouvingut: contingut ric, llengua simplificada + glossari complet
-- AC + dislèxia: contingut complex, format visual/oral accessible
-- AC + TEA: repte dins estructura predictible i literal
+ALTES CAPACITATS + QUALSEVOL ALTRA (DOBLE EXCEPCIONALITAT / 2e):
+La doble excepcionalitat genera un perfil PROPI ("perfil verd") que no és
+la suma de les parts. El potencial i les dificultats s'emmascaren mútuament.
+
+Principis 2e en creuaments:
+- Mantenir SEMPRE el repte cognitiu (no simplificar el contingut)
+- Adaptar el FORMAT a la condició associada
+- El "perfil verd" és invisible: l'alumne sembla "normal" i no rep suport
+- Prioritzar fortaleses com a via d'accés, no centrar-se en dèficits
+
+AC + nouvingut:
+- Contingut ric + llengua simplificada + glossari bilingüe complet
+- El potencial cognitiu queda ocult per la barrera lingüística
+- Permetre expressions en L1, repte conceptual des del dia 1
+- L'alumne pot tenir coneixements avançats que no pot demostrar en L2
+
+AC + dislèxia:
+- Contingut complex + format visual/oral accessible
+- Rendiment molt irregular: brillant en unes matèries, molt per sota en d'altres
+- Pot evitar lectura per frustració però té idees elaborades oralment
+- Alternatives multisensorials, suport auditiu, mapes conceptuals
+
+AC + TEA:
+- Repte cognitiu dins estructura predictible i literal
+- L'hiperfocus pot ser motor d'aprenentatge extraordinari
+- Aprofitar interessos com a porta d'entrada + estructura clara + profunditat
+- Dificultats en flexibilitat cognitiva i comunicació social
 
 REGLA GENERAL DE CONFLICTE:
 - Si dues condicions demanen direccions oposades (simplificar vs enriquir),
   PRIORITZAR l'accessibilitat (que l'alumne pugui accedir al text)
   i DESPRÉS afegir repte dins del format accessible.
+- En perfils 2e: el repte cognitiu és tant necessari com l'accessibilitat.
+  Un text accessible però sense repte desconnecta l'alumne 2e tant com un
+  text complex però inaccessible.
 - La intensitat LF es calcula com el MÀXIM de les intensitats individuals.
