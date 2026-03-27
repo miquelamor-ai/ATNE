@@ -1277,16 +1277,33 @@ function loadHistoryFull(index) {
     // Restaurar característiques del perfil
     if (item.profile_json) {
         const chars = item.profile_json.caracteristiques || {};
-        document.querySelectorAll(".char-toggle.active").forEach(el => el.classList.remove("active"));
-        state.selectedChars = {};
+
+        // Nom i camps generals
+        const nomEl = document.getElementById("profile-nom");
+        if (nomEl) nomEl.value = item.profile_json.nom || "";
+        const canalEl = document.getElementById("profile-canal");
+        if (canalEl && item.profile_json.canal_preferent) canalEl.value = item.profile_json.canal_preferent;
+        const obsEl = document.getElementById("profile-obs");
+        if (obsEl) obsEl.value = item.profile_json.observacions || "";
+
+        // Característiques: marcar checkboxes i subvariables
         Object.keys(chars).forEach(charId => {
-            const btn = document.querySelector(`.char-toggle[data-char="${charId}"]`);
-            if (btn) {
-                btn.classList.add("active");
-                state.selectedChars[charId] = chars[charId];
+            const entry = chars[charId];
+            const cb = document.querySelector(`input[type="checkbox"][data-char="${charId}"]`);
+            if (!cb) return;
+            cb.checked = !!entry.actiu;
+            // Disparar change perquè la UI mostri/oculti subvars
+            cb.dispatchEvent(new Event("change", { bubbles: true }));
+            // Restaurar subvariables
+            if (entry.actiu) {
+                Object.keys(entry).forEach(varKey => {
+                    if (varKey === "actiu") return;
+                    const el = document.querySelector(`[data-char="${charId}"][data-var="${varKey}"]`);
+                    if (el) el.value = entry[varKey];
+                });
             }
         });
-        renderSubvars();
+        check2eAlert();
     }
 
     // Restaurar context
