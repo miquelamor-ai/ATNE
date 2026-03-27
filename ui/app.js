@@ -267,6 +267,8 @@ const state = {
     feedbackRating: null,  // 1=dolenta, 2=regular, 3=bona
 };
 
+let _historyLoaded = false; // cache flag historial
+
 
 // ── Inicialització ─────────────────────────────────────────────────────────
 
@@ -752,6 +754,7 @@ async function runAdaptation() {
     state.originalText = text;
 
     // Mostrar progress
+    state._doneHandled = false;
     const progressArea = document.getElementById("progress-area");
     const progressSteps = document.getElementById("progress-steps");
     progressArea.classList.add("active");
@@ -813,6 +816,8 @@ function handleSSEEvent(ev, container) {
     } else if (ev.type === "result") {
         state.adaptedText = ev.adapted;
     } else if (ev.type === "done") {
+        if (state._doneHandled) return; // evitar duplicats
+        state._doneHandled = true;
         container.querySelectorAll(".progress-step.active").forEach(el => {
             el.classList.remove("active");
             el.classList.add("done");
@@ -921,6 +926,8 @@ async function saveToHistory() {
         const data = await resp.json();
         if (data.ok && data.id) {
             state.historyId = data.id;
+            // Invalidar cache d'historial perquè la propera vegada es refresqui
+            _historyLoaded = false;
         }
     } catch { /* no bloquejant */ }
 }
@@ -1153,12 +1160,20 @@ function bindEvents() {
     // Perfils
     document.getElementById("btn-save-profile").addEventListener("click", saveProfile);
     document.getElementById("btn-load-profile").addEventListener("click", loadProfile);
+    loadHistoryIfNeeded(); // pre-carregar historial en obrir l'app
 
     // Adaptació
     document.getElementById("btn-adapt").addEventListener("click", runAdaptation);
 
     // Word count
     document.getElementById("input-text").addEventListener("input", updateWordCount);
+
+    // Carregar historial quan s'arriba al pas 2
+    document.querySelectorAll('.step-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            if (tab.dataset.step === '2') loadHistoryIfNeeded();
+        });
+    });
 
     // Actualitzar selects dinàmics quan canvia l'etapa
     document.getElementById("ctx-etapa").addEventListener("change", () => {
@@ -1173,4 +1188,131 @@ function bindEvents() {
     document.querySelectorAll('input[name="ctx-aula"]').forEach(r => {
         r.addEventListener("change", saveContextToStorage);
     });
+}
+
+// ── Historial de textos anteriors ──────────────────────────────────────────
+
+async function loadHistoryIfNeeded() {
+    if (_historyLoaded) return;
+    _historyLoaded = true;
+    await refreshHistory();
+}
+
+async function refreshHistory() {
+    const list = document.getElementById("history-list");
+    if (!list) return;
+
+    list.innerHTML = '<div class="history-loading">Carregant historial…</div>';
+
+    try {
+        const resp = await fetch("/api/history");
+        const data = await resp.json();
+
+        if (!data.ok || !data.items || data.items.length === 0) {
+            list.innerHTML = '<div class="history-empty">Encara no hi ha adaptacions guardades.</div>';
+            return;
+        }
+
+        list.innerHTML = data.items.map((item, i) => {
+            const date = new Date(item.created_at).toLocaleString("ca-ES", {
+                day: "2-digit", month: "2-digit", year: "2-digit",
+                hour: "2-digit", minute: "2-digit"
+            });
+            const preview = (item.original_text || "").slice(0, 200).replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            const profileName = item.profile_name || "Sense nom";
+            const hasProfile = item.profile_json && Object.keys(item.profile_json).length > 0;
+
+            return `<div class="history-item">
+                <div class="history-item-meta">
+                    <span class="history-item-badge">${profileName}</span>
+                    <span>${date}</span>
+                </div>
+                <div class="history-item-preview">${preview}…</div>
+                <div class="history-item-actions">
+                    <button class="btn btn-secondary" onclick="loadHistoryText(${i})">Carrega text</button>
+                    ${hasProfile ? `<button class="btn btn-secondary" onclick="loadHistoryFull(${i})">Carrega text + perfil</button>` : ""}
+                </div>
+            </div>`;
+        }).join("");
+
+        list.dataset.items = JSON.stringify(data.items);
+
+    } catch (e) {
+        list.innerHTML = `<div class="history-empty">Error carregant historial: ${e.message}</div>`;
+    }
+}
+
+function toggleHistory() {
+    const list = document.getElementById("history-list");
+    const btn = document.getElementById("history-toggle");
+    const open = list.style.display !== "none";
+    list.style.display = open ? "none" : "block";
+    btn.textContent = (open ? "▾" : "▴") + " Textos anteriors";
+    if (!open) loadHistoryIfNeeded();
+}
+
+function loadHistoryText(index) {
+    const list = document.getElementById("history-list");
+    const items = JSON.parse(list.dataset.items || "[]");
+    const item = items[index];
+    if (!item) return;
+
+    document.getElementById("input-text").value = item.original_text || "";
+    updateWordCount();
+
+    list.style.display = "none";
+    document.getElementById("history-toggle").textContent = "▾ Textos anteriors";
+}
+
+function loadHistoryFull(index) {
+    const list = document.getElementById("history-list");
+    const items = JSON.parse(list.dataset.items || "[]");
+    const item = items[index];
+    if (!item) return;
+
+    // Carregar text
+    document.getElementById("input-text").value = item.original_text || "";
+    updateWordCount();
+
+    // Restaurar característiques del perfil
+    if (item.profile_json) {
+        const chars = item.profile_json.caracteristiques || {};
+        document.querySelectorAll(".char-toggle.active").forEach(el => el.classList.remove("active"));
+        state.selectedChars = {};
+        Object.keys(chars).forEach(charId => {
+            const btn = document.querySelector(`.char-toggle[data-char="${charId}"]`);
+            if (btn) {
+                btn.classList.add("active");
+                state.selectedChars[charId] = chars[charId];
+            }
+        });
+        renderSubvars();
+    }
+
+    // Restaurar context
+    if (item.context_json) {
+        const ctx = item.context_json;
+        ["etapa","curs","ambit","materia"].forEach(key => {
+            const el = document.getElementById("ctx-" + key);
+            if (el && ctx[key] !== undefined) el.value = ctx[key];
+        });
+        if (ctx.aula) {
+            const r = document.querySelector(`input[name="ctx-aula"][value="${ctx.aula}"]`);
+            if (r) r.checked = true;
+        }
+        updateEtapaSelects();
+    }
+
+    list.style.display = "none";
+    document.getElementById("history-toggle").textContent = "▾ Textos anteriors";
+    showStep(1);
+
+    setTimeout(() => {
+        const notice = document.createElement("div");
+        notice.style.cssText = "background:#eff6ff;border:1px solid #bfdbfe;color:#1d4ed8;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:12px;";
+        notice.textContent = "Perfil i text carregats. Modifica el que necessitis i continua al pas 2.";
+        const step1 = document.getElementById("step-1");
+        step1.insertBefore(notice, step1.firstChild);
+        setTimeout(() => notice.remove(), 6000);
+    }, 100);
 }

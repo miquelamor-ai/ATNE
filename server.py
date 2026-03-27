@@ -45,7 +45,10 @@ UI_DIR = Path(__file__).parent / "ui"
 from google import genai
 from google.genai import types
 
-gemini_client = genai.Client(api_key=GEMINI_API_KEY)
+gemini_client = genai.Client(
+    api_key=GEMINI_API_KEY,
+    http_options=types.HttpOptions(timeout=180_000),  # 180s per generacions llargues
+)
 
 # ── FastAPI app ─────────────────────────────────────────────────────────────
 
@@ -852,10 +855,19 @@ def run_adaptation(text: str, profile: dict, context: dict, params: dict,
             config=types.GenerateContentConfig(
                 system_instruction=system_prompt,
                 temperature=0.4,
-                max_output_tokens=8000,
+                max_output_tokens=16384,
+                thinking_config=types.ThinkingConfig(thinking_budget=0),
             ),
         )
-        adapted = response.text
+        adapted = response.text or ""
+        # Avisar si Gemini ha truncat per max_output_tokens
+        try:
+            fr = response.candidates[0].finish_reason
+            if fr and str(fr).upper() in ("MAX_TOKENS", "2"):
+                cb({"type": "step", "step": "warning",
+                    "msg": "⚠ La resposta s'ha truncat (massa complements). Considera reduir-ne."})
+        except Exception:
+            pass
         # Netejar "thinking" filtrat de Gemini (text abans del primer ## )
         adapted = clean_gemini_output(adapted)
     except Exception as e:
@@ -934,6 +946,24 @@ async def delete_profile(nom: str):
 
 
 # ── Historial i feedback ──────────────────────────────────────────────────
+
+@app.get("/api/history")
+async def list_history(limit: int = 30):
+    """Llista les últimes adaptacions de l'historial."""
+    try:
+        resp = requests.get(
+            f"{SUPABASE_URL}/rest/v1/history"
+            f"?select=id,created_at,profile_name,original_text,profile_json,context_json,params_json,rating"
+            f"&order=created_at.desc&limit={limit}",
+            headers=SUPABASE_HEADERS,
+            timeout=10,
+        )
+        if resp.status_code == 200:
+            return {"ok": True, "items": resp.json()}
+        return {"ok": False, "items": [], "error": resp.text}
+    except Exception as e:
+        return {"ok": False, "items": [], "error": str(e)}
+
 
 @app.post("/api/history")
 async def save_history(payload: dict = Body(...)):
@@ -1020,12 +1050,12 @@ async def adapt_stream(payload: dict = Body(...)):
             while not task.done():
                 while events:
                     yield f"data: {json.dumps(events.pop(0), ensure_ascii=False)}\n\n"
-                await asyncio.sleep(0.15)
-            # Drenar events restants
+                # Keepalive: evita QUIC_NETWORK_IDLE_TIMEOUT mentre Gemini genera
+                yield ": keepalive\n\n"
+                await asyncio.sleep(0.5)
+            # Drenar events restants (run_adaptation ja envia 'done')
             while events:
                 yield f"data: {json.dumps(events.pop(0), ensure_ascii=False)}\n\n"
-            # Assegurar que done s'envia
-            yield f"data: {json.dumps({'type': 'done'})}\n\n"
 
     return StreamingResponse(gen(), media_type="text/event-stream")
 

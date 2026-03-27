@@ -124,6 +124,16 @@
             <textarea class="text-area" id="input-text" placeholder="Enganxa aquí el text que vols adaptar..."></textarea>
             <div class="word-count" id="word-count">0 paraules</div>
 
+            <!-- Historial de textos anteriors -->
+            <div class="history-panel" id="history-panel">
+                <button class="history-toggle" id="history-toggle" onclick="toggleHistory()">
+                    ▾ Textos anteriors
+                </button>
+                <div class="history-list" id="history-list" style="display:none;">
+                    <div class="history-loading" id="history-loading">Carregant historial…</div>
+                </div>
+            </div>
+
             <button class="btn btn-primary btn-big" id="btn-next-3">Següent: Proposta d'adaptació</button>
         </section>
 
